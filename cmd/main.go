@@ -1,8 +1,14 @@
 package main
 
-import "github.com/MatveyDevs/yandex-calculator/internal/application"
+import (
+	"github.com/MatveyDevs/yandex-calculator/internal/application"
+	"log"
+)
 
 func main() {
 	app := application.New()
-	app.Run()
+	err := app.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

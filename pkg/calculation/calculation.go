@@ -1,7 +1,6 @@
-package rpn
+package calculation
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -30,21 +29,21 @@ func isSign(value rune) bool {
 
 func Calc(expression string) (float64, error) {
 	if len(expression) < 3 {
-		return 0, fmt.Errorf("???")
+		return 0, ErrInvalidExpression
 	}
 	var res float64
 	var b string
 	var c rune = 0
-	var resflag bool = false
+	var resflag = false
 	var isc int
-	var countc int = 0
+	var countc = 0
 	for _, value := range expression {
 		if isSign(value) {
 			countc++
 		}
 	}
 	if isSign(rune(expression[0])) || isSign(rune(expression[len(expression)-1])) {
-		return 0, fmt.Errorf("???")
+		return 0, ErrInvalidCharacter
 	}
 	for i, value := range expression {
 		if value == '(' {
@@ -53,7 +52,7 @@ func Calc(expression string) (float64, error) {
 		if value == ')' {
 			calc, err := Calc(expression[isc+1 : i])
 			if err != nil {
-				return 0, fmt.Errorf("???")
+				return 0, ErrInvalidExpression
 			}
 			calcStr := strconv.FormatFloat(calc, 'f', 0, 64)
 			i2 := i
@@ -85,7 +84,7 @@ func Calc(expression string) (float64, error) {
 				}
 				calc, err := Calc(expression[imin:imax])
 				if err != nil {
-					return 0, fmt.Errorf("")
+					return 0, ErrInvalidExpression
 				}
 				calcstr := strconv.FormatFloat(calc, 'f', 0, 64)
 				i -= len(expression[isc:i+1]) - len(calcstr) - 1
@@ -120,9 +119,8 @@ func Calc(expression string) (float64, error) {
 			}
 			b = strings.ReplaceAll(b, b, "")
 			c = value
-		case value == 's':
 		default:
-			return 0, fmt.Errorf("not correct input")
+			return 0, ErrDivisionByZero
 		}
 	}
 	return res, nil

@@ -1,7 +1,7 @@
-package rpn_test
+package calculation_test
 
 import (
-	"github.com/MatveyDevs/yandex-calculator/pkg/rpn"
+	"github.com/MatveyDevs/yandex-calculator/pkg/calculation"
 	"testing"
 )
 
@@ -35,7 +35,7 @@ func TestCalc(t *testing.T) {
 
 	for _, testCase := range testCasesSuccess {
 		t.Run(testCase.name, func(t *testing.T) {
-			val, err := rpn.Calc(testCase.expression)
+			val, err := calculation.Calc(testCase.expression)
 			if err != nil {
 				t.Fatalf("successful case %s returns error", testCase.expression)
 			}
@@ -70,7 +70,7 @@ func TestCalc(t *testing.T) {
 
 	for _, testCase := range testCasesFail {
 		t.Run(testCase.name, func(t *testing.T) {
-			val, err := rpn.Calc(testCase.expression)
+			val, err := calculation.Calc(testCase.expression)
 			if err == nil {
 				t.Fatalf("expression %s is invalid but result  %f was obtained", testCase.expression, val)
 			}
