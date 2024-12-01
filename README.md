@@ -15,17 +15,19 @@ This repository contains a **Go-based** server application that functions as a *
 
 1. Clone the repository:
 
-
+```
     git clone https://github.com/MatveyDevs/yandex-calculator.git 
     cd yandex-calculator
-2. Ensure Go is installed and set up on your machine.
+```
+3. Ensure Go is installed and set up on your machine.
 
-3. Run the server:
+4. Run the server:
 
-
+```
     cd cmd
     go run main.go
-4. Send requests to `http://localhost:8080` using a browser or Postman.
+```
+5. Send requests to `http://localhost:8080` using a browser or Postman.
 
 ## 📋 Example Usage
 
@@ -62,25 +64,27 @@ Feel free to submit issues or suggestions!
 
 1. Клонируйте репозиторий:
 
-
+```
     git clone https://github.com/MatveyDevs/yandex-calculator.git 
     cd yandex-calculator
+```
 2. Убедитесь, что Go установлен и настроен на вашем компьютере.
 
 3. Запустите сервер:
 
-
+```
     cd cmd
     go run main.go
+```
 4. Отправляйте запросы на `http://localhost:8080` с помощью браузера или Postman.
 
 ## 📋 Примеры использования
 
 ### Сложение:
 Вы можете выполнить сложение следующим образом:
-
+```
       curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
-
+```
 #### Ответ:
     {
     "result": 4
