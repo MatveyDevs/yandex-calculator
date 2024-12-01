@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/MatveyDevs/yandex-calculator/internal/models"
+	"log"
 	"net/http"
 )
 
@@ -22,10 +23,11 @@ func New(service CalculationService) *CalculationController {
 
 func (c *CalculationController) GetCalc(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
-
 	var data models.CalculationResponse
+
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		log.Println("Что то пошло не так", data)
 		return
 	}
 
