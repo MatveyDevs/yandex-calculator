@@ -32,3 +32,26 @@ func TestGetCalcHandlerSuccessCase(t *testing.T) {
 		t.Errorf("wrong status code")
 	}
 }
+
+func TestGetCalcHandlerFailCase(t *testing.T) {
+	s := service.New()
+	c := controllers.New(s)
+	expected := strings.TrimSpace(`{"error":"Expression is not valid"}`)
+	req := httptest.NewRequest(http.MethodPost, "/calc", strings.NewReader(`{"expression": "2+2/"}`))
+	w := httptest.NewRecorder()
+	c.GetCalc(w, req)
+	res := w.Result()
+	defer res.Body.Close()
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	if strings.TrimSpace(string(data)) != expected {
+		t.Errorf("Expected %s but got %s", expected, string(data))
+	}
+
+	if res.StatusCode != http.StatusUnprocessableEntity {
+		t.Errorf("wrong status code")
+	}
+}

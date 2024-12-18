@@ -3,7 +3,6 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/MatveyDevs/yandex-calculator/internal/models"
-	"log"
 	"net/http"
 )
 
@@ -26,14 +25,20 @@ func (c *CalculationController) GetCalc(w http.ResponseWriter, r *http.Request) 
 	var data models.CalculationResponse
 
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		log.Println("Что то пошло не так", data)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(internalServerErr)
+		return
+	}
+	if data.Expression == "" {
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(internalServerErr)
 		return
 	}
 
 	calc, err := c.service.CalculateExpression(data)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		json.NewEncoder(w).Encode(invalidExpressionErr)
 		return
 	}
 
@@ -41,7 +46,8 @@ func (c *CalculationController) GetCalc(w http.ResponseWriter, r *http.Request) 
 
 	resp := map[string]float64{"result": calc}
 	if err = json.NewEncoder(w).Encode(resp); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(internalServerErr)
 		return
 	}
 }

@@ -16,7 +16,8 @@ func LoggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		tee := io.TeeReader(r.Body, &body)
 		var calcResp models.CalculationResponse
 		if err := json.NewDecoder(tee).Decode(&calcResp); err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
+			w.WriteHeader(http.StatusInternalServerError)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		log.Printf("Received request: %s %s\nBody: %s", r.Method, r.URL.Path, calcResp)

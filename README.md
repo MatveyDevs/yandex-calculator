@@ -14,31 +14,56 @@ This repository contains a **Go-based** server application that functions as a *
 ## 🚀 Installation and Running
 
 1. Clone the repository:
-
-
-    git clone https://github.com/MatveyDevs/yandex-calculator.git 
-    cd yandex-calculator
+```
+git clone https://github.com/MatveyDevs/yandex-calculator.git 
+cd yandex-calculator
+```    
 2. Ensure Go is installed and set up on your machine.
 
 3. Run the server:
 
-
-    cd cmd
-    go run main.go
+```
+cd cmd
+go run main.go
+```    
 4. Send requests to `http://localhost:8080` using a browser or Postman.
 
 ## 📋 Example Usage
 
 ### Addition:
 You can perform addition with the following command:
-
-      curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+```
+#### Response:
+```
+{
+  "result": 4
+}
+```
+### Call Reslting in 422 Unprocessable Entity:
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
+```
 
 #### Response:
-    {
-    "result": 4
-    }
+```
+{
+  "error": "Expression is not valid"
+}
+```
 
+### Call Reslting in 500 Internal Server Error:
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
+```
+
+#### Response:
+```
+{
+  "error": "Internal Server Error"
+}
+```
 Feel free to submit issues or suggestions!
 
 ---
@@ -61,29 +86,53 @@ Feel free to submit issues or suggestions!
 ## 🚀 Установка и запуск
 
 1. Клонируйте репозиторий:
-
-
-    git clone https://github.com/MatveyDevs/yandex-calculator.git 
-    cd yandex-calculator
+```
+git clone https://github.com/MatveyDevs/yandex-calculator.git 
+cd yandex-calculator
+```    
 2. Убедитесь, что Go установлен и настроен на вашем компьютере.
 
 3. Запустите сервер:
-
-
-    cd cmd
-    go run main.go
+```
+cd cmd
+go run main.go
+```    
 4. Отправляйте запросы на `http://localhost:8080` с помощью браузера или Postman.
 
 ## 📋 Примеры использования
 
 ### Сложение:
 Вы можете выполнить сложение следующим образом:
-
-      curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+```
+#### Ответ:
+```
+{
+  "result": 4
+}
+```
+### Вызов с ошибкой 422 Unprocessable Entity:
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
+```
 
 #### Ответ:
-    {
-    "result": 4
-    }
+```
+{
+  "error": "Expression is not valid"
+}
+```
 
+### Вызов с ошибкой 500 Internal Server Error:
+```
+curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
+```
+
+#### Ответ:
+```
+{
+  "error": "Internal Server Error"
+}
+```
 Мы рады получить ваши предложения и комментарии!
