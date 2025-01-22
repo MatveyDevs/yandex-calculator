@@ -11,6 +11,6 @@ func New() *CalculationService {
 	return &CalculationService{}
 }
 
-func (cs *CalculationService) CalculateExpression(data models.CalculationResponse) (float64, error) {
+func (cs *CalculationService) CalculateExpression(data models.CalculationRequest) (float64, error) {
 	return calculation.Calc(data.Expression)
 }

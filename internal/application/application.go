@@ -2,6 +2,7 @@ package application
 
 import (
 	"github.com/MatveyDevs/yandex-calculator/internal/api/route"
+	"github.com/MatveyDevs/yandex-calculator/internal/config"
 	"log"
 	"net/http"
 )
@@ -15,9 +16,10 @@ func New() *Application {
 
 func (a *Application) Run() error {
 	mux := http.NewServeMux()
+	cfg := config.New()
 	route.NewCalculationRoute(mux)
-	log.Println("Server started on port :8080")
-	if err := http.ListenAndServe(":8080", mux); err != nil {
+	log.Printf("Server started on port :%s", cfg.Port)
+	if err := http.ListenAndServe(":"+cfg.Port, mux); err != nil {
 		return err
 	}
 	return nil

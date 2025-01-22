@@ -10,5 +10,5 @@ import (
 func NewCalculationRoute(router *http.ServeMux) {
 	s := service.New()
 	c := controllers.New(s)
-	router.Handle("/calc", mw.LoggingMiddleware(c.GetCalc))
+	router.Handle("/api/v1/calculate", mw.LoggingMiddleware(c.GetCalc))
 }

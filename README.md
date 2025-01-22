@@ -18,22 +18,26 @@ This repository contains a **Go-based** server application that functions as a *
 git clone https://github.com/MatveyDevs/yandex-calculator.git 
 cd yandex-calculator
 ```    
-2. Ensure Go is installed and set up on your machine.
+2. If port 8080 is busy, create an .env file in the root of the project and change the PORT, for example:
+```
+PORT=8081
+```
+3. Ensure Go is installed and set up on your machine.
 
-3. Run the server:
+4. Run the server:
 
 ```
 cd cmd
 go run main.go
 ```    
-4. Send requests to `http://localhost:8080` using a browser or Postman.
+5. Send requests to `http://localhost:8080` using a browser or Postman.
 
 ## 📋 Example Usage
 
 ### Addition:
 You can perform addition with the following command:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
 ```
 #### Response:
 ```
@@ -43,7 +47,7 @@ curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "
 ```
 ### Call Reslting in 422 Unprocessable Entity:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
 ```
 
 #### Response:
@@ -55,7 +59,7 @@ curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "
 
 ### Call Reslting in 500 Internal Server Error:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
 ```
 
 #### Response:
@@ -90,21 +94,25 @@ Feel free to submit issues or suggestions!
 git clone https://github.com/MatveyDevs/yandex-calculator.git 
 cd yandex-calculator
 ```    
-2. Убедитесь, что Go установлен и настроен на вашем компьютере.
+2. Если порт 8080 занят, то создайте файл .env в корне проекта и измените PORT, например:
+```
+PORT=8081
+```
+3. Убедитесь, что Go установлен и настроен на вашем компьютере.
 
-3. Запустите сервер:
+4. Запустите сервер:
 ```
 cd cmd
 go run main.go
 ```    
-4. Отправляйте запросы на `http://localhost:8080` с помощью браузера или Postman.
+5. Отправляйте запросы на `http://localhost:8080` с помощью браузера или Postman.
 
 ## 📋 Примеры использования
 
 ### Сложение:
 Вы можете выполнить сложение следующим образом:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"expression\": \"2+2\"}"
 ```
 #### Ответ:
 ```
@@ -114,7 +122,7 @@ curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "
 ```
 ### Вызов с ошибкой 422 Unprocessable Entity:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"expression\": \"incorrect\"}"
 ```
 
 #### Ответ:
@@ -126,7 +134,7 @@ curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "
 
 ### Вызов с ошибкой 500 Internal Server Error:
 ```
-curl -X POST http://localhost:8080/calc -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
+curl -X POST http://localhost:8080/api/v1/calculate -H "Content-Type: application/json" -d "{\"invalid\": \"value\"}"
 ```
 
 #### Ответ:

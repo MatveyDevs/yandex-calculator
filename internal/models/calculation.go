@@ -1,5 +1,5 @@
 package models
 
-type CalculationResponse struct {
+type CalculationRequest struct {
 	Expression string `json:"expression"`
 }

@@ -3,11 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/MatveyDevs/yandex-calculator/internal/models"
+	"io"
+	"log"
 	"net/http"
 )
 
 type CalculationService interface {
-	CalculateExpression(data models.CalculationResponse) (float64, error)
+	CalculateExpression(data models.CalculationRequest) (float64, error)
 }
 
 type CalculationController struct {
@@ -21,8 +23,13 @@ func New(service CalculationService) *CalculationController {
 }
 
 func (c *CalculationController) GetCalc(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	var data models.CalculationResponse
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}(r.Body)
+	var data models.CalculationRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -41,7 +48,6 @@ func (c *CalculationController) GetCalc(w http.ResponseWriter, r *http.Request) 
 		json.NewEncoder(w).Encode(invalidExpressionErr)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 
 	resp := map[string]float64{"result": calc}
